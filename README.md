@@ -62,6 +62,6 @@ Contributions are welcome! If you have any ideas, suggestions, or bug reports, p
 This project is licensed under the ISC License. See the [LICENSE](LICENSE) file for details.
 
 ## Author
-
-*   **Name:** Salek Masud
-*   **Email:** salekmasud@gmail.com
+ 
+*   **Name:** Salek Masud Parvez
+*   **Email:** salekmasudparvez@gmail.com
