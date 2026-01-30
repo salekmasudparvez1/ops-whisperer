@@ -5,8 +5,9 @@ The Infrastructure Translator: Turn natural language into Ops code. This CLI too
 ## Features
 
 *   **Natural Language to Code:** Describe the infrastructure you need in plain English, and Ops-Whisperer will generate the corresponding code.
-*   **Multiple Infrastructure Types:** Supports generation for Docker, Kubernetes, and Terraform.
+*   **Multiple Infrastructure Types:** Supports generation for Docker, Kubernetes, Terraform and Bash.
 *   **Interactive Execution:** Review the generated code and confirm execution before any changes are applied.
+*   **Interactive Mode:** An interactive mode for a more guided experience.
 
 ## Prerequisites
 
@@ -26,7 +27,17 @@ npm install -g ops-whisperer
 
 ## Usage
 
-Run the `infra` command followed by a description of the infrastructure you want to create. You can specify the type of infrastructure using the `-t` or `--type` option.
+### Interactive Mode
+
+Run the `ops` command without any arguments to enter interactive mode.
+
+```bash
+ops
+```
+
+### Headless Mode
+
+Run the `ops` command followed by a description of the infrastructure you want to create. You can specify the type of infrastructure using the `-t` or `--type` option.
 
 ```bash
 # Generate a Dockerfile for a Node.js application
@@ -37,6 +48,9 @@ ops "a Kubernetes deployment for an Nginx web server" --type k8s
 
 # Generate Terraform code for an AWS S3 bucket
 ops "Terraform code for an AWS S3 bucket configured for static website hosting" --type terraform
+
+# Generate a bash command
+ops "a bash command to list all the running docker containers" --type bash
 ```
 
 ## Contributing
@@ -49,5 +63,5 @@ This project is licensed under the ISC License. See the [LICENSE](LICENSE) file 
 
 ## Author
 
-*   **Name:** Salek Masud Parvez
-*   **Email:** salekmasudparvez@gmail.com
+*   **Name:** Salek Masud
+*   **Email:** salekmasud@gmail.com
