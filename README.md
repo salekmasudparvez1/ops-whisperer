@@ -30,13 +30,13 @@ Run the `infra` command followed by a description of the infrastructure you want
 
 ```bash
 # Generate a Dockerfile for a Node.js application
-infra "a Dockerfile for a Node.js application with Express that listens on port 3000" --type docker
+ops "a Dockerfile for a Node.js application with Express that listens on port 3000" --type docker
 
 # Generate a Kubernetes deployment for a simple web server
-infra "a Kubernetes deployment for an Nginx web server" --type k8s
+ops "a Kubernetes deployment for an Nginx web server" --type k8s
 
 # Generate Terraform code for an AWS S3 bucket
-infra "Terraform code for an AWS S3 bucket configured for static website hosting" --type terraform
+ops "Terraform code for an AWS S3 bucket configured for static website hosting" --type terraform
 ```
 
 ## Contributing
