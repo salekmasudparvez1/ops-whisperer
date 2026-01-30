@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <title>Ops Whisperer | AI-Powered DevOps CLI for Docker, K8s & Terraform</title>
+    <meta name="description" content="Turn natural language into infrastructure code. Ops Whisperer is an open-source CLI that uses AI to generate Dockerfiles, Kubernetes manifests, and Terraform configs instantly.">
+    <meta name="keywords" content="npm, cli, devops, ai, infrastructure as code, docker, kubernetes, terraform, copilot, automation, nodejs">
+    <meta name="author" content="Salek Masud">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://salekmasud.github.io/ops-whisperer">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://salekmasud.github.io/ops-whisperer">
+    <meta property="og:title" content="Ops Whisperer | The AI DevOps Assistant">
+    <meta property="og:description" content="Don't write boilerplate. Speak it. Generate infrastructure code in seconds with your new favorite CLI.">
+    <meta property="og:image" content="https://opengraph.githubassets.com/1/salekmasud/ops-whisperer">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://salekmasud.github.io/ops-whisperer">
+    <meta property="twitter:title" content="Ops Whisperer | The AI DevOps Assistant">
+    <meta property="twitter:description" content="Don't write boilerplate. Speak it. Generate infrastructure code in seconds with your new favorite CLI.">
+    <meta property="twitter:image" content="https://opengraph.githubassets.com/1/salekmasud/ops-whisperer">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Ops Whisperer",
+      "operatingSystem": "Windows, macOS, Linux",
+      "applicationCategory": "DeveloperApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "A CLI tool that turns natural language instructions into DevOps code (Docker, K8s, Terraform) using AI.",
+      "author": {
+        "@type": "Person",
+        "name": "Salek Masud"
+      }
+    }
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bg: '#050505', 
+                        card: '#0A0A0A',
+                        border: '#1F1F1F',
+                        primary: '#3B82F6', // Vibrant Blue
+                        secondary: '#A855F7', // Purple
+                        text: '#E5E7EB',
+                        muted: '#9CA3AF'
+                    },
+                    fontFamily: {
+                        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif']
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'cursor': 'cursor .75s step-end infinite'
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        cursor: {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #050505; color: #E5E7EB; overflow-x: hidden; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        
+        /* Premium Gradients */
+        .text-gradient {
+            background: linear-gradient(135deg, #60A5FA 0%, #C084FC 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Subtle Aurora Background */
+        .aurora-bg {
+            position: absolute;
+            top: -20%;
+            left: -10%;
+            width: 50%;
+            height: 50%;
+            background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(0,0,0,0) 70%);
+            filter: blur(60px);
+            animation: blob 10s infinite alternate;
+            z-index: -1;
+        }
+        .aurora-bg-2 {
+            position: absolute;
+            bottom: -10%;
+            right: -10%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(168,85,247,0.1) 0%, rgba(0,0,0,0) 70%);
+            filter: blur(60px);
+            animation: blob 15s infinite alternate-reverse;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="relative">
+
+    <div class="aurora-bg"></div>
+    <div class="aurora-bg-2"></div>
+
+    <nav class="fixed w-full z-50 glass border-b border-white/5 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-2 group">
+                <span class="text-3xl group-hover:scale-110 transition-transform">⚡</span>
+                <span class="font-bold text-xl tracking-tight text-white">Ops<span class="text-gray-400">Whisperer</span></span>
+            </a>
+            
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#features" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Features</a>
+                <a href="#how-it-works" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">How it Works</a>
+                
+                <a href="https://github.com/salekmasud" target="_blank" class="flex items-center gap-2 bg-white text-black px-5 py-2.5 rounded-full text-sm font-bold hover:bg-gray-200 transition-all transform hover:scale-105 shadow-lg shadow-white/10">
+                    <i class="fab fa-github"></i>
+                    <span>Star on GitHub</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-32 pb-20 lg:pt-48 lg:pb-32 px-6">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-16 items-center">
+            
+            <div class="lg:col-span-7 animate-fade-in-up">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/10 mb-8">
+                    <span class="relative flex h-2 w-2">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                    </span>
+                    <span class="text-xs font-semibold text-blue-400 uppercase tracking-widest">AI-Powered DevOps</span>
+                </div>
+
+                <h1 class="text-5xl sm:text-7xl font-extrabold tracking-tight leading-[1.1] mb-6 text-white">
+                    Infrastructure <br>
+                    at the Speed of <br>
+                    <span class="text-gradient">Thought.</span>
+                </h1>
+                
+                <p class="text-xl text-muted leading-relaxed max-w-2xl mb-10">
+                    Stop wrestling with YAML indentation. Tell Ops Whisperer what you need, and watch it generate production-ready <strong>Docker</strong>, <strong>K8s</strong>, and <strong>Terraform</strong> code instantly.
+                </p>
+
+                <div class="max-w-md">
+                    <div class="group relative">
+                        <div class="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg blur opacity-40 group-hover:opacity-75 transition duration-500"></div>
+                        <div class="relative flex items-center bg-[#0d1117] rounded-lg p-4 border border-white/10 shadow-2xl">
+                            <span class="text-blue-400 mr-4 select-none">❯</span>
+                            <code class="font-mono text-sm text-gray-100 flex-1">npm install -g ops-whisperer</code>
+                            <button onclick="copyCmd()" class="text-gray-500 hover:text-white transition-colors p-2" aria-label="Copy to clipboard">
+                                <i class="far fa-copy text-lg"></i>
+                            </button>
+                            <span id="toast" class="absolute -top-10 right-0 bg-green-500 text-black text-xs font-bold px-3 py-1 rounded opacity-0 transition-opacity">Copied!</span>
+                        </div>
+                    </div>
+                    <p class="mt-3 text-xs text-gray-500 font-mono text-center sm:text-left">
+                        <i class="fab fa-npm mr-1"></i> v1.0.0 • MIT License • <span class="text-green-500">4.8kB gzip</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5 relative perspective-1000 animate-fade-in-up" style="animation-delay: 0.2s;">
+                <div class="absolute -right-10 -top-10 w-72 h-72 bg-blue-500/20 rounded-full blur-[80px]"></div>
+                
+                <div class="glass rounded-xl overflow-hidden shadow-2xl border border-white/10 transform rotate-y-[-5deg] rotate-x-[5deg] hover:rotate-0 transition-transform duration-700">
+                    <div class="bg-[#1e1e1e] px-4 py-3 border-b border-white/5 flex items-center justify-between">
+                        <div class="flex gap-2">
+                            <div class="w-3 h-3 rounded-full bg-[#FF5F56]"></div>
+                            <div class="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
+                            <div class="w-3 h-3 rounded-full bg-[#27C93F]"></div>
+                        </div>
+                        <div class="text-xs text-gray-500 font-mono">user@dev-machine:~</div>
+                        <div class="w-10"></div>
+                    </div>
+
+                    <div class="p-6 bg-[#0d1117] font-mono text-sm min-h-[320px]">
+                        <div class="mb-4">
+                            <span class="text-blue-400 font-bold">➜</span> <span class="text-white">ops</span> "deploy nginx on k8s"
+                        </div>
+
+                        <div class="flex items-center gap-2 text-cyan-400 mb-6">
+                            <i class="fas fa-circle-notch fa-spin"></i>
+                            <span>Consulting Ops Spirits...</span>
+                        </div>
+
+                        <div class="mb-2 text-gray-500 text-xs uppercase tracking-wide">Suggested Kubernetes Manifest:</div>
+                        
+                        <div class="bg-[#161b22] p-4 rounded border-l-2 border-blue-500 text-gray-300 text-xs overflow-x-auto">
+                            <span class="text-purple-400">apiVersion:</span> apps/v1<br>
+                            <span class="text-purple-400">kind:</span> Deployment<br>
+                            <span class="text-purple-400">metadata:</span><br>
+                            &nbsp;&nbsp;<span class="text-blue-300">name:</span> nginx-deployment<br>
+                            <span class="text-purple-400">spec:</span><br>
+                            &nbsp;&nbsp;<span class="text-blue-300">replicas:</span> 3<br>
+                            &nbsp;&nbsp;<span class="text-purple-400">template:</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-purple-400">spec:</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-purple-400">containers:</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <span class="text-blue-300">name:</span> nginx<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-blue-300">image:</span> nginx:1.14.2
+                        </div>
+                        
+                        <div class="mt-6 flex items-center">
+                            <span class="text-green-400 mr-2">?</span>
+                            <span class="text-white">Execute this?</span>
+                            <span class="ml-auto text-gray-500 text-xs">[Y/n]</span>
+                            <span class="animate-cursor bg-white w-2 h-4 ml-2 inline-block"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <section class="py-10 border-y border-white/5 bg-black/20">
+        <div class="max-w-7xl mx-auto px-6">
+            <p class="text-center text-sm text-gray-500 mb-8 font-medium">GENERATES CONFIGURATIONS FOR MODERN STACKS</p>
+            <div class="flex flex-wrap justify-center items-center gap-12 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+                <div class="flex items-center gap-2 text-xl font-bold text-[#2496ED]"><i class="fab fa-docker text-3xl"></i> Docker</div>
+                <div class="flex items-center gap-2 text-xl font-bold text-[#326CE5]"><i class="fas fa-dharmachakra text-3xl"></i> Kubernetes</div>
+                <div class="flex items-center gap-2 text-xl font-bold text-[#7B42BC]"><i class="fas fa-code-branch text-3xl"></i> Terraform</div>
+                <div class="flex items-center gap-2 text-xl font-bold text-white"><i class="fas fa-terminal text-3xl"></i> Bash</div>
+                <div class="flex items-center gap-2 text-xl font-bold text-[#F7DF1E]"><i class="fab fa-js text-3xl"></i> Node.js</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="text-3xl md:text-5xl font-bold text-white mb-6">Why developers love Ops Whisperer</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Built by engineers, for engineers. We prioritize safety, speed, and clean code generation.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass p-8 rounded-2xl hover:bg-white/5 transition-colors group">
+                    <div class="w-14 h-14 bg-blue-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-magic text-2xl text-blue-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Context Aware AI</h3>
+                    <p class="text-gray-400 leading-relaxed">It doesn't just guess. It understands your intent. Whether you need a multi-stage Docker build or an AWS VPC, it generates context-specific code.</p>
+                </div>
+
+                <div class="glass p-8 rounded-2xl hover:bg-white/5 transition-colors group">
+                    <div class="w-14 h-14 bg-purple-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-shield-halved text-2xl text-purple-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Safety Rails</h3>
+                    <p class="text-gray-400 leading-relaxed">No rogue commands. Ops Whisperer parses every generated command for dangerous patterns (like `rm -rf /`) before suggesting it.</p>
+                </div>
+
+                <div class="glass p-8 rounded-2xl hover:bg-white/5 transition-colors group">
+                    <div class="w-14 h-14 bg-green-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-bolt text-2xl text-green-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Zero Context Switch</h3>
+                    <p class="text-gray-400 leading-relaxed">Don't leave your terminal to Google syntax. Just type `ops` and get the answer right where you are working.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="py-24 bg-black/40 border-t border-white/5">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-white mb-16 text-center">Flexible Workflows</h2>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="space-y-4">
+                    <h3 class="text-xl font-bold text-white flex items-center gap-3">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-sm">1</span>
+                        One-Shot Mode
+                    </h3>
+                    <p class="text-gray-400 text-sm mb-4">Perfect for quick file generation when you know what you want.</p>
+                    <div class="bg-[#0d1117] border border-white/10 rounded-lg p-5 font-mono text-sm shadow-lg">
+                        <div class="text-gray-500 mb-2"># Generate a Dockerfile instantly</div>
+                        <div class="text-white">
+                            <span class="text-blue-400">ops</span> "Node.js app on port 3000" <span class="text-gray-500">--type</span> docker
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <h3 class="text-xl font-bold text-white flex items-center gap-3">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-sm">2</span>
+                        Interactive Mode
+                    </h3>
+                    <p class="text-gray-400 text-sm mb-4">A guided TUI (Text User Interface) for complex tasks.</p>
+                    <div class="bg-[#0d1117] border border-white/10 rounded-lg p-5 font-mono text-sm shadow-lg">
+                        <div class="text-gray-500 mb-2"># Enter the assistant</div>
+                        <div class="text-white mb-2">
+                            <span class="text-blue-400">ops</span>
+                        </div>
+                        <div class="text-cyan-400">
+                            ? What system are we targeting?
+                        </div>
+                        <div class="text-white">
+                            > Docker<br>
+                            &nbsp;&nbsp;Kubernetes<br>
+                            &nbsp;&nbsp;Terraform
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="border-t border-white/10 bg-[#050505] pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-2">
+                    <span class="text-2xl mb-4 block">⚡</span>
+                    <p class="text-gray-400 text-sm max-w-xs">
+                        Ops Whisperer is an open-source project designed to bridge the gap between natural language and complex infrastructure configurations.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Project</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="https://github.com/salekmasud" class="hover:text-blue-400 transition-colors">GitHub Repo</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition-colors">NPM Registry</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition-colors">Report Issue</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Legal</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-blue-400 transition-colors">MIT License</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition-colors">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-600 text-sm">&copy; 2026 Salek Masud. All rights reserved.</p>
+                <div class="flex gap-6 text-gray-500">
+                    <a href="#" class="hover:text-white transition-colors"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="hover:text-white transition-colors"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="hover:text-white transition-colors"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function copyCmd() {
+            navigator.clipboard.writeText('npm install -g ops-whisperer');
+            const toast = document.getElementById('toast');
+            toast.style.opacity = '1';
+            toast.style.transform = 'translateY(-10px)';
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(0)';
+            }, 2000);
+        }
+
+        // Navbar blur effect on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-lg', 'bg-black/80');
+                nav.classList.remove('glass');
+            } else {
+                nav.classList.remove('shadow-lg', 'bg-black/80');
+                nav.classList.add('glass');
+            }
+        });
+    </script>
+</body>
+</html>
